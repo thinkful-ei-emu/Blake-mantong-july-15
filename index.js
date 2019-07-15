@@ -70,6 +70,9 @@ app.get('/lotto',(req,res)=>{
     return res.status(400).send('Has to be an array');
 
   }
+  if(arr.length!==6){
+    return res.status(400).send('array length is not 6');
+  }
   let randomNums=[];
   for (let i=0;i<6;i++) {
     let randomNum=Math.ceil(Math.random()*20);
