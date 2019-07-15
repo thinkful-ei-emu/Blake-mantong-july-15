@@ -76,9 +76,52 @@ app.get('/lotto',(req,res)=>{
   let randomNums=[];
   for (let i=0;i<6;i++) {
     let randomNum=Math.ceil(Math.random()*20);
-    randomNums[i]=randomNum;
+    randomNums.push(randomNum);
   }
-  let resultString = randomNums.join(', ');
-  return res.send(resultString);
+  let matchingCount = 0;
+  let workingArray = [];
+  arr.forEach(numberString => {
+    workingArray.push(parseInt(numberString));
+  });
+  workingArray.forEach((number , index) => {
+    if (number < 1 || number > 20){
+
+      return res.status(400).send(`arr index: ${index} is >20 or < 1`);
+    }
+    for (let i = 0; i < randomNums.length ; i ++){
+      if(number === randomNums[i]){
+        matchingCount ++;
+      }
+    }
+  });
+
+  if (matchingCount < 4){
+    let myString = 'Sorry you lose , matchingCount : ' + matchingCount;
+    return res.send(myString);
+  }
+
+  if (matchingCount === 4){
+    let myString = 'congratulations! you win a FREE ticket , matchingCount : ' + matchingCount;
+    return res.send(myString);
+  }
+  if (matchingCount === 5){
+    let myString = 'congratulations! you win $100 , matchingCount : ' + matchingCount;
+    return res.send(myString);
+  }
+  if (matchingCount === 6){
+    let myString = 'Wow! Unbelievable! You could have won the mega millions!, matchingCount : ' + matchingCount;
+    return res.send(myString);
+  }
+  else{
+    let randomNumsString = randomNums.join(', ');
+    let myNumsString = workingArray.join(', ');
+    let resultString = 'myNums: ' + myNumsString + ' randomNums: ' + randomNumsString + 'matching amount: ' + matchingCount;
+    return res.send(resultString);
+  }
+
+
+
+
+  
 });
 app.listen(8080, ()=> console.log('Server on 8080') );
