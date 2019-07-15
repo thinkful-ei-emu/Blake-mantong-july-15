@@ -1,11 +1,11 @@
-//drill 1
+
 const express = require ('express');
 const morgan = require ('morgan');
 
 const app = express();
-
 app.use(morgan('dev'));
 
+//drill 1
 app.get('/sum',(req,res)=>{
   const {a,b} = req.query;
 
@@ -58,8 +58,6 @@ app.get('/cipher',(req,res)=>{
   let result = resultArray.join('');
   return res.send(result);
 });
-
-
 //drill 3
 app.get('/lotto',(req,res)=>{
   const{arr} = req.query;
@@ -124,4 +122,5 @@ app.get('/lotto',(req,res)=>{
 
   
 });
+
 app.listen(8080, ()=> console.log('Server on 8080') );
