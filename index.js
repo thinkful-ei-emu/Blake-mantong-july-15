@@ -30,7 +30,7 @@ app.get('/sum',(req,res)=>{
 
   res.send(sum);
 });
-
+//drill 2
 app.get('/cipher',(req,res)=>{
   const{text , shift} = req.query;
   if(!text){
@@ -58,5 +58,24 @@ app.get('/cipher',(req,res)=>{
   let result = resultArray.join('');
   return res.send(result);
 });
- 
+
+
+//drill 3
+app.get('/lotto',(req,res)=>{
+  const{arr} = req.query;
+  if(!arr){
+    return res.status(400).send('Please provide an array');
+  }
+  if(typeof arr !== 'object'){
+    return res.status(400).send('Has to be an array');
+
+  }
+  let randomNums=[];
+  for (let i=0;i<6;i++) {
+    let randomNum=Math.ceil(Math.random()*20);
+    randomNums[i]=randomNum;
+  }
+  let resultString = randomNums.join(', ');
+  return res.send(resultString);
+});
 app.listen(8080, ()=> console.log('Server on 8080') );
